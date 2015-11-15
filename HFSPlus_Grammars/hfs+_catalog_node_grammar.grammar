@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ufwb version="1.6">
+    <grammar name="HFS_Catalog_File" start="id:278" author="oompa">
+        <description>Grammar for my file format</description>
+        <structure name="Defaults" id="279" encoding="ISO_8859-1:1987" endian="big" signed="no"/>
+        <structure name="Header Node" id="281" length="4096" extends="id:279">
+            <structure name="Node Descriptor" id="282">
+                <number name="Forward Link" id="283" fillcolor="D4FB78" type="integer" length="4"/>
+                <number name="Backward Link" id="284" fillcolor="FEFC78" type="integer" length="4"/>
+                <number name="Kind" mustmatch="yes" id="285" fillcolor="75D5FF" type="integer" length="1" display="hex">
+                    <fixedvalues>
+                        <fixedvalue name="Header Node" value="0x1"/>
+                    </fixedvalues>
+                </number>
+                <number name="Height" id="286" fillcolor="FF89D8" type="integer" length="1"/>
+                <number name="Number of Records" id="287" fillcolor="FFD478" type="integer" length="2"/>
+                <binary name="Reserved" id="288" fillcolor="FF9300" length="2"/>
+            </structure>
+            <structure name="Header Record" id="290" length="0">
+                <number name="Tree Depth" id="291" fillcolor="FF2600" type="integer" length="2"/>
+                <number name="Root Node" id="292" fillcolor="FF9300" type="integer" length="4"/>
+                <number name="Leaf Records" id="293" fillcolor="FEFB00" type="integer" length="4"/>
+                <number name="First Leaf Node" id="294" fillcolor="00F900" type="integer" length="4"/>
+                <number name="Last Leaf Node" id="295" fillcolor="75D5FF" type="integer" length="4"/>
+                <number name="Node Size" id="296" fillcolor="7980FF" type="integer" length="2"/>
+                <number name="Max Key Length" id="297" fillcolor="D783FF" type="integer" length="2"/>
+                <number name="Total Nodes" id="298" fillcolor="4E8F00" type="integer" length="4"/>
+                <number name="Free Nodes" id="299" fillcolor="FFD478" type="integer" length="4"/>
+                <number name="reserved" id="300" fillcolor="D5D5D5" type="integer" length="2"/>
+                <number name="Clump Size" id="301" fillcolor="797979" type="integer" length="4"/>
+                <number name="B-Tree Type" mustmatch="yes" id="302" fillcolor="FF9300" type="integer" length="1" display="hex">
+                    <fixedvalues>
+                        <fixedvalue name="HFS B-Tree" value="0x0"/>
+                        <fixedvalue name="User B-Tree" value="0x80"/>
+                        <fixedvalue name="Reserved (Attribute?)" value="0xFF"/>
+                    </fixedvalues>
+                </number>
+                <number name="Key Compare Type" mustmatch="yes" id="303" fillcolor="0096FF" type="integer" length="1" display="hex">
+                    <fixedvalues>
+                        <fixedvalue name="Case Folding (case-insensitive)" value="0xCF"/>
+                        <fixedvalue name="Binary Compare (case sensitive)" value="0xBC"/>
+                        <fixedvalue name="Case Insensitive" value="0xC7"/>
+                    </fixedvalues>
+                </number>
+                <binary name="Attributes" id="304" fillcolor="FF89D8" length="4"/>
+                <binary name="Reserved" id="305" fillcolor="D783FF" length="4"/>
+            </structure>
+            <structure name="User Data Record" id="307" length="128" fillcolor="75D5FF"/>
+            <structure name="Map Record" id="362" length="3908" fillcolor="FFD478"/>
+        </structure>
+        <structure name="Node" id="310" length="4096" extends="id:279" fillcolor="D783FF">
+            <structure name="Node Descriptor" id="311">
+                <number name="Forward Link" id="312" fillcolor="9437FF" type="integer" length="4"/>
+                <number name="Backward Link" id="313" fillcolor="0096FF" type="integer" length="4"/>
+                <number name="Kind" mustmatch="yes" id="314" fillcolor="FF2F92" type="integer" length="1" display="hex">
+                    <fixedvalues>
+                        <fixedvalue name="Leaf Node" value="0xFF"/>
+                        <fixedvalue name="Index Node" value="0x0"/>
+                        <fixedvalue name="Header Node" value="0x1"/>
+                        <fixedvalue name="Map Node" value="0x2"/>
+                    </fixedvalues>
+                </number>
+                <number name="Height" id="315" fillcolor="D4FB78" type="integer" length="1"/>
+                <number name="Number of Records" id="316" fillcolor="FF89D8" type="integer" length="2"/>
+                <number name="Reserved" id="317" fillcolor="D5D5D5" type="integer" length="2" display="hex"/>
+            </structure>
+            <structure name="Key &amp; Record Data" id="365" length="4082" fillcolor="D4FB78"/>
+        </structure>
+        <structure name="HFS+ B-Tree File" id="278" extends="id:279">
+            <structref name="Header Node" id="334" structure="id:281"/>
+            <structref name="Node" id="335" repeatmax="-1" structure="id:310"/>
+        </structure>
+    </grammar>
+</ufwb>

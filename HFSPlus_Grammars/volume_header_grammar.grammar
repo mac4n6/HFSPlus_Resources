@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ufwb version="1.6">
+    <grammar name="hfs volume header" start="id:68" author="oompa" fileextension="" uti="public.data">
+        <description>Grammar for my file format</description>
+        <structure name="HFS+ Volume Header" id="68" length="0" encoding="ISO_8859-1:1987" endian="big" signed="no">
+            <string name="Disk Signature" id="69" strokecolor="0432FF" fillcolor="FF2600" type="fixed-length" length="2"/>
+            <number name="Version" id="70" fillcolor="FF9200" type="integer" length="2"/>
+            <binary name="Attributes" id="71" fillcolor="00F900" length="4"/>
+            <string name="Last Mounted Version" id="72" fillcolor="00FCFF" type="fixed-length" length="4"/>
+            <number name="Journal Info Block" id="73" fillcolor="D4FB78" type="integer" length="4"/>
+            <number name="Create Date" id="74" fillcolor="FEFB00" type="integer" length="4"/>
+            <number name="Modify Date" id="75" fillcolor="72FCD5" type="integer" length="4"/>
+            <number name="Backup Date" id="76" fillcolor="FEFB00" type="integer" length="4"/>
+            <number name="Checked Date" id="77" fillcolor="72FCD5" type="integer" length="4"/>
+            <number name="File Count" id="78" fillcolor="FF9200" type="integer" length="4"/>
+            <number name="Folder Count" id="79" fillcolor="FFD478" type="integer" length="4"/>
+            <number name="Block Size" id="80" fillcolor="00FCFF" type="integer" length="4"/>
+            <number name="Total Blocks" id="81" fillcolor="FF40FF" type="integer" length="4"/>
+            <number name="Free Blocks" id="82" fillcolor="00F900" type="integer" length="4"/>
+            <number name="Next Allocation" id="83" fillcolor="FF2600" type="integer" length="4"/>
+            <number name="RSRC Clump Size" id="84" fillcolor="AA7941" type="integer" length="4"/>
+            <number name="Data Clump Size" id="85" fillcolor="AA7941" type="integer" length="4"/>
+            <number name="Next Catalog ID" id="86" fillcolor="0432FF" type="integer" length="4"/>
+            <number name="Write Count" id="87" fillcolor="9437FF" type="integer" length="4"/>
+            <binary name="Encoding Bitmap" id="88" fillcolor="FF9200" length="64" lengthunit="bit"/>
+            <number name="Finder Info Array [0]" id="89" fillcolor="FF2600" type="integer" length="4"/>
+            <number name="Finder Info Array [1]" id="90" fillcolor="FF2600" type="integer" length="4"/>
+            <number name="Finder Info Array [2]" id="91" fillcolor="FF2600" type="integer" length="4"/>
+            <number name="Finder Info Array [3]" id="92" fillcolor="FF2600" type="integer" length="4"/>
+            <number name="Finder Info Array [4]" id="93" fillcolor="FF2600" type="integer" length="4"/>
+            <number name="Finder Info Array [5]" id="94" fillcolor="FF2600" type="integer" length="4"/>
+            <number name="VSDB Volume ID Finder Info Array [6,7]" id="95" fillcolor="D4FB78" type="integer" length="8" display="hex"/>
+            <structure name="ForkData" id="96" length="80" repeatmin="5" repeatmax="5">
+                <number name="Logical Size" id="97" fillcolor="FF40FF" type="integer" length="8"/>
+                <number name="Clump Size" id="98" fillcolor="00FCFF" type="integer" length="4"/>
+                <number name="Total Blocks" id="99" fillcolor="FF9200" type="integer" length="4"/>
+                <structure name="Extents" id="100" length="8" repeatmin="8" repeatmax="8">
+                    <number name="StartBlock" id="101" fillcolor="00F900" type="integer" length="4"/>
+                    <number name="BlockCount" id="102" fillcolor="FEFB00" type="integer" length="4"/>
+                </structure>
+            </structure>
+        </structure>
+    </grammar>
+</ufwb>
